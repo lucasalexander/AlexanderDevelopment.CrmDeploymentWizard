@@ -25,6 +25,7 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
 
         private const string _cSolutionsDir = "solutions";
         private const string _cImportLogsDir = "logs";
+        private const string _cImportDataDir = "data";
 
         string _targetString;
         CrmConnection _targetConn;
@@ -136,7 +137,7 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
             {
                 LogMessage("INFO", string.Format("Step #{0}", i + 1));
                 var step = _jobSteps[i];
-                switch (step["steptype"].ToString().ToUpper())
+                switch (step["type"].ToString().ToUpper())
                 {
                     case "SOLUTIONIMPORT":
                         ImportSolution(step);
@@ -163,10 +164,11 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
 
         void ImportSolution(JObject solutionstep)
         {
+            LogMessage("INFO", string.Format("Starting solution import step"));
             _targetConn.Timeout = new TimeSpan(_timeoutHours, _timeoutMinutes, _timeoutSeconds);
             using (OrganizationService service = new OrganizationService(_targetConn))
             {
-                string solutionpath = string.Format(@"{0}\{1}\{2}", _rootDir, _cSolutionsDir, solutionstep["steppath"].ToString());
+                string solutionpath = string.Format(@"{0}\{1}\{2}", _rootDir, _cSolutionsDir, solutionstep["solutionpath"].ToString());
                 byte[] fileBytes = File.ReadAllBytes(solutionpath);
 
                 ImportSolutionRequest impSolReq = new ImportSolutionRequest()
@@ -208,7 +210,8 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
                     LogMessage("INFO", "Solution components published");
                 }
             }
-        }
+            LogMessage("INFO", string.Format("Solution import step complete"));
+       }
 
         XmlDocument BuildPublishXml(XmlDocument importjobdoc, OrganizationService service)
         {
@@ -334,16 +337,40 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
 
         void ImportData(JObject datastep)
         {
-            //
+            LogMessage("INFO", string.Format("Starting data import step"));
+            string dataimportconfig = string.Format(@"{0}\{1}\{2}", _rootDir, _cImportDataDir, datastep["configpath"].ToString());
+            LogMessage("INFO", string.Format("Data import config is {0}", dataimportconfig));
+
+            string source = datastep["datasource"].ToString();
+            if(source.ToUpper().EndsWith("JSON"))
+            {
+                source = string.Format(@"FILE={0}\{1}\{2}", _rootDir, _cImportDataDir, source);
+            }
+            LogMessage("INFO", string.Format("Data import source is {0}", source));
+
+            DataImport import = new DataImport();
+            import.ConfigFile = dataimportconfig;
+            import.Source = source;
+            import.Target = _targetString;
+
+            import.Execute();
+            LogMessage("INFO", string.Format("Data import step complete"));
         }
 
         void RunCommand(JObject commandstep)
         {
-            System.Diagnostics.Process.Start(commandstep["steppath"].ToString(), commandstep["arguments"].ToString());
+            LogMessage("INFO", string.Format("Starting command step"));
+            System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
+            startinfo.FileName = commandstep["path"].ToString();
+            startinfo.Arguments = commandstep["arguments"].ToString();
+            startinfo.CreateNoWindow = false;// !(Convert.ToBoolean(commandstep["newwindow"].ToString()));
+            System.Diagnostics.Process.Start(startinfo);
+            LogMessage("INFO", string.Format("Command step complete"));
         }
 
         void ParseCrmConnection()
         {
+            LogMessage("INFO", string.Format("Parsing CRM connection"));
             LogMessage("INFO", string.Format("target string: {0}", _targetString));
             _targetConn = CrmConnection.Parse(_targetString);
 

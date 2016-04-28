@@ -1,28 +1,28 @@
 # AlexanderDevelopment.CrmDeploymentWizard
 This is a tool used to automate Dynamics CRM deployments. The tool reads a JSON-formatted manifest of CRM solutions to deploy (and optionally publish), configuration data to import and additional commands to execute, and then it executes those steps in order.
 
-Currently the tool only supports importing and publishing solutions. Data importing functionality is not enabled and command execution has not been tested at all.
-
-The deployment manifest is formatted like so:
+The deployment manifest is formatted like this:
 
 <pre>{
   "steps": [
     {
-      "steptype": "solutionimport",
-      "steppath": "dog_0_0_0_1.zip",
+      "type": "solutionimport",
+      "solutionpath": "dog_0_0_0_1.zip",
       "options": {
         "publishworkflows": true,
 		"publishcomponents": true
       }
     },
     {
-      "steptype": "dataimport",
-      "steppath": "PATH_TO_JOB.xml"
+      "type": "dataimport",
+      "configpath": "team-import.xml",
+	  "datasource": "teams.json"
     },
     {
-      "steptype": "command",
-      "steppath": "echo",
+      "type": "command",
+      "path": "C:\\git-repos\\AlexanderDevelopment.CrmDeploymentWizard\\sln-work\\test.bat",
 	  "arguments": ""
     }
   ]
-}</pre>
+}
+</pre>
