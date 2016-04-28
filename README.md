@@ -1,5 +1,5 @@
 # AlexanderDevelopment.CrmDeploymentWizard
-This is a tool used for automate Dynamics CRM deployments. The tool reads a JSON-formatted manifest of CRM solutions to deploy (and optionally publish), configuration data to import and additional commands to execute, and then it executes those steps in order.
+This is a tool used to automate Dynamics CRM deployments. The tool reads a JSON-formatted manifest of CRM solutions to deploy (and optionally publish), configuration data to import and additional commands to execute, and then it executes those steps in order.
 
 The deployment manifest is formatted like so:
 
