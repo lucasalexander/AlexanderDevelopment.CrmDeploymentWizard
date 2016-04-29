@@ -24,7 +24,7 @@ namespace AlexanderDevelopment.CrmDeploymentWizard
         {
             var help = new HelpText
             {
-                Heading = new HeadingInfo("AlexanderDevelopment.ConfigDataMover.Cli", "1.0.0.0"),
+                Heading = new HeadingInfo("AlexanderDevelopment.CrmDeploymentWizard"),
                 AdditionalNewLineAfterOption = true,
                 AddDashesToOption = true
             };
