@@ -1,0 +1,153 @@
+<importexportxml start="635978833254323821" stop="635978833520259782" progress="100" processed="true">
+  <solutionManifests>
+    <solutionManifest languagecode="1033" id="dog" LocalizedName="dog" processed="true">
+      <UniqueName>dog</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="dog" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions />
+      <Version>0.0.0.1</Version>
+      <Managed>0</Managed>
+      <Publisher>
+        <UniqueName>DefaultPublisherLucasTest02</UniqueName>
+        <LocalizedNames>
+          <LocalizedName description="Default Publisher for LucasTest02" languagecode="1033" />
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Default publisher for this organization" languagecode="1033" />
+        </Descriptions>
+        <EMailAddress />
+        <SupportingWebsiteUrl />
+        <Addresses>
+          <Address>
+            <City />
+            <Country />
+            <Line1 />
+            <Line2 />
+            <PostalCode />
+            <StateOrProvince />
+            <Telephone1 />
+          </Address>
+        </Addresses>
+      </Publisher>
+      <results />
+      <result result="success" errorcode="0" errortext="" datetime="18:42:08.60" datetimeticks="635978977286048478" />
+    </solutionManifest>
+  </solutionManifests>
+  <upgradeSolutionPackageInformation>
+    <upgradeRequired>1</upgradeRequired>
+    <upgradeValid>1</upgradeValid>
+    <fileVersion>7.0.0.3543</fileVersion>
+    <currentVersion>7.0.0.3543</currentVersion>
+    <fileSku>OnPremise</fileSku>
+    <currentSku>OnPremise</currentSku>
+  </upgradeSolutionPackageInformation>
+  <entities>
+    <entity LocalizedName="Account" OriginalName="Account" Description="" id="Account" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:08.99" datetimeticks="635978977289950881" />
+    </entity>
+    <entity LocalizedName="Dog" OriginalName="Dog" Description="" id="new_dog" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:14.94" datetimeticks="635978977349485400" />
+    </entity>
+  </entities>
+  <nodes>
+    <node id="sitemap" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:27.90" datetimeticks="635978977479013281" />
+    </node>
+  </nodes>
+  <settings />
+  <dashboards>
+    <dashboard id="{4e76815a-1f63-df11-ae90-00155d2e3002}" name="Customer Service Operations Dashboard" description="Shows the key performance indicators for customer service operations." processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:27.93" datetimeticks="635978977479323129" />
+    </dashboard>
+  </dashboards>
+  <securityroles />
+  <workflows />
+  <publishworkflows />
+  <templates />
+  <optionSets />
+  <ConnectionRoles />
+  <SolutionPluginAssemblies />
+  <SdkMessageProcessingSteps />
+  <ServiceEndpoints />
+  <webResources />
+  <reports />
+  <FieldSecurityProfiles />
+  <convertrules />
+  <routingrules />
+  <Slas />
+  <ribbons>
+    <ribbon LocalizedName="Application Ribbons" Description="Ribbon customizations for the application ribbon and entity ribbon templates." processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:08.96" datetimeticks="635978977289640510" />
+    </ribbon>
+  </ribbons>
+  <languages>
+    <language>
+      <result result="success" errorcode="0" errortext="" datetime="18:42:05.57" datetimeticks="635978977255730363" />
+    </language>
+  </languages>
+  <entitySubhandlers>
+    <formXml LocalizedName="Account" OriginalName="Account" Description="" id="Account" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:22.79" datetimeticks="635978977427916789" />
+    </formXml>
+    <entityRibbon LocalizedName="Account" OriginalName="Account" Description="" id="Account" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:22.87" datetimeticks="635978977428710374" />
+    </entityRibbon>
+    <savedQuery LocalizedName="Dog" OriginalName="Dog" Description="" id="new_dog" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:15.26" datetimeticks="635978977352610211" />
+    </savedQuery>
+    <formXml LocalizedName="Dog" OriginalName="Dog" Description="" id="new_dog" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:22.94" datetimeticks="635978977429483362" />
+    </formXml>
+    <entityRibbon LocalizedName="Dog" OriginalName="Dog" Description="" id="new_dog" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:23.54" datetimeticks="635978977435420071" />
+    </entityRibbon>
+    <savedQuery processed="true" id="Account">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:14.96" datetimeticks="635978977349643357" />
+    </savedQuery>
+    <entityCustomResources processed="true" id="Account">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:22.80" datetimeticks="635978977428077644" />
+    </entityCustomResources>
+    <entityCustomResources processed="true" id="new_dog">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:22.94" datetimeticks="635978977429483362" />
+    </entityCustomResources>
+    <hierarchyrule processed="true" id="Account">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:23.57" datetimeticks="635978977435735121" />
+    </hierarchyrule>
+    <hierarchyrule processed="true" id="new_dog">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:23.57" datetimeticks="635978977435735121" />
+    </hierarchyrule>
+    <savedQueryVisualization processed="true" id="Account">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:23.58" datetimeticks="635978977435886131" />
+    </savedQueryVisualization>
+    <savedQueryVisualization processed="true" id="new_dog">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:23.58" datetimeticks="635978977435886131" />
+    </savedQueryVisualization>
+  </entitySubhandlers>
+  <rootComponents>
+    <rootComponent processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:28.02" datetimeticks="635978977480270053" />
+    </rootComponent>
+  </rootComponents>
+  <dependencies>
+    <dependency processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:31.97" datetimeticks="635978977519799958" />
+    </dependency>
+  </dependencies>
+  <upgradeHandlers>
+    <upgradeHandler id="UpdateSdkMessageIdAttribute" LocalizedName="Transform Package" Description="Transform Package" processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:04.91" datetimeticks="635978977249170844" />
+    </upgradeHandler>
+  </upgradeHandlers>
+  <skuHandlers />
+  <validateHandlers>
+    <validateHandler id="XSDValidationHandler" LocalizedName="Package Validation" Description="Validates solution package schema." processed="true">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:05.04" datetimeticks="635978977250421025" />
+    </validateHandler>
+  </validateHandlers>
+  <entityrelationships>
+    <entityrelationship processed="true" id="">
+      <result result="success" errorcode="0" errortext="" datetime="18:42:17.38" datetimeticks="635978977373857250" />
+    </entityrelationship>
+  </entityrelationships>
+</importexportxml>

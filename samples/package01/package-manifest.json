@@ -1,0 +1,22 @@
+{
+  "steps": [
+    {
+      "type": "solutionimport",
+      "solutionpath": "dog_0_0_0_1.zip",
+      "options": {
+        "publishworkflows": true,
+		"publishcomponents": true
+      }
+    },
+    {
+      "type": "dataimport",
+      "configpath": "team-import.xml",
+	  "datasource": "teams.json"
+    },
+    {
+      "type": "command",
+      "path": "C:\\git-repos\\AlexanderDevelopment.CrmDeploymentWizard\\samples\\package01\\test.bat",
+	  "arguments": ""
+    }
+  ]
+}
