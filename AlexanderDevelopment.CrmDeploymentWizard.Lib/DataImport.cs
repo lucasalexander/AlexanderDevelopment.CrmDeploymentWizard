@@ -64,16 +64,6 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
             int errorCount = importer.ErrorCount;
 
             importer = null;
-
-            ////show a message to the user
-            //if (errorCount == 0)
-            //{
-            //    Console.WriteLine("Job finished with no errors.");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Job finished with errors. See the RecordError.log file for more details.");
-            //}
         }
         
 

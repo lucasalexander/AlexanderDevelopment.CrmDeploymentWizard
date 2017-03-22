@@ -7,8 +7,6 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-using Microsoft.Xrm.Client;
-using Microsoft.Xrm.Client.Services;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Discovery;
 using AlexanderDevelopment.CrmDeploymentWizard.Lib;

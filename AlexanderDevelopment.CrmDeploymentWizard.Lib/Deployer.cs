@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Query;
-using Microsoft.Xrm.Client;
-using Microsoft.Xrm.Client.Services;
+using Microsoft.Xrm.Tooling.Connector;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Discovery;
 using log4net;
@@ -28,7 +28,7 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
         private const string _cImportDataDir = "data";
 
         string _targetString;
-        CrmConnection _targetConn;
+        CrmServiceClient _targetClient;
         List<JObject> _jobSteps;
         string _targetVersion;
         string _rootDir;
@@ -47,7 +47,7 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
         public Deployer()
         {
             _targetString = string.Empty;
-            _targetConn = null;
+            _targetClient = null;
             _jobSteps = new List<JObject>();
             _targetVersion = "0.0.0.0";
             _rootDir = string.Empty;
@@ -165,9 +165,9 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
         void ImportSolution(JObject solutionstep)
         {
             LogMessage("INFO", string.Format("Starting solution import step"));
-            _targetConn.Timeout = new TimeSpan(_timeoutHours, _timeoutMinutes, _timeoutSeconds);
-            using (OrganizationService service = new OrganizationService(_targetConn))
+            using (OrganizationServiceProxy service = _targetClient.OrganizationServiceProxy)
             {
+                service.Timeout = new TimeSpan(_timeoutHours, _timeoutMinutes, _timeoutSeconds);
                 string solutionpath = string.Format(@"{0}\{1}\{2}", _rootDir, _cSolutionsDir, solutionstep["solutionpath"].ToString());
                 byte[] fileBytes = File.ReadAllBytes(solutionpath);
 
@@ -213,7 +213,7 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
             LogMessage("INFO", string.Format("Solution import step complete"));
        }
 
-        XmlDocument BuildPublishXml(XmlDocument importjobdoc, OrganizationService service)
+        XmlDocument BuildPublishXml(XmlDocument importjobdoc, OrganizationServiceProxy service)
         {
             XmlDocument publishdoc = new XmlDocument();
             XmlElement rootelement = publishdoc.CreateElement(string.Empty, "importexportxml", string.Empty);
@@ -372,40 +372,20 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
         {
             LogMessage("INFO", string.Format("Parsing CRM connection"));
             LogMessage("INFO", string.Format("target string: {0}", _targetString));
-            _targetConn = CrmConnection.Parse(_targetString);
+            _targetClient = new CrmServiceClient(_targetString);
 
             //disable prompting for credentials
-            _targetConn.ClientCredentials.SupportInteractive = false;
+            //_targetClient.ClientCredentials.SupportInteractive = false;
 
             //validate login works
             try
             {
-                using (OrganizationService service = new OrganizationService(_targetConn))
+                using (OrganizationServiceProxy service = _targetClient.OrganizationServiceProxy)
                 {
                     //get the organization id
                     Guid orgId = ((WhoAmIResponse)service.Execute(new WhoAmIRequest())).OrganizationId;
 
-                    //query discovery service to determine version of target organization
-                    var discoveryService = new DiscoveryService(_targetConn);
-                    RetrieveOrganizationsRequest orgsRequest =
-                    new RetrieveOrganizationsRequest()
-                    {
-                        AccessType = EndpointAccessType.Default,
-                        Release = OrganizationRelease.Current
-                    };
-                    RetrieveOrganizationsResponse organizations =
-                        (RetrieveOrganizationsResponse)discoveryService.Execute(orgsRequest);
-                    foreach (OrganizationDetail organization in organizations.Details)
-                    {
-                        if (organization.OrganizationId == orgId)
-                        {
-                            //set target version variable for use later
-                            _targetVersion = organization.OrganizationVersion;
-
-                            //log target version
-                            LogMessage("INFO", "target version is - " + organization.OrganizationVersion);
-                        }
-                    }
+                    LogMessage("INFO", "target version is - " + _targetClient.ConnectedOrgVersion.ToString());
                 }
             }
             catch (Exception ex)
