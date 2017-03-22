@@ -1,14 +1,14 @@
 # AlexanderDevelopment.CrmDeploymentWizard
-The CRM Deployment Wizard automates Dynamics CRM deployments. The tool supports three different operations:
+The CRM Deployment Wizard automates Dynamics 365/CRM deployments. The tool supports three different operations:
 
-1. Importing one or more CRM solutions
+1. Importing one or more Dynamics 365/CRM solutions
 2. Executing one or more [Alexander Development Dynamics Dynamics 365 Configuration Data Mover](http://alexanderdevelopment.net/tag/configuration-data-mover/) jobs
 3. Executing arbitrary commands using the .Net System.Diagnostics.Process.Start method
 
 ### Setting up a deployment package
 In order to use the tool, you need to do the following:
 
-1. Create a directory to hold the deployment manifest and all supporting CRM solution and configuration data files.
+1. Create a directory to hold the deployment manifest and all supporting Dynamics 365/CRM solution and configuration data files.
 2. Create the following subdirectories in the main deployment package directory:
     1. solutions
     2. data
@@ -44,7 +44,7 @@ In order to use the tool, you need to do the following:
 
 Each of the configuration parameters is described in more detail below. A sample deployment package can be found in the "samples" directory.
 
-#### CRM solution import step parameters
+#### Dynamics 365/CRM solution import step parameters
 - type: solutionimport
 - solutionpath: Path to the solution relative to the "solutions" directory.
 - options
@@ -77,7 +77,7 @@ AlexanderDevelopment.CrmDeploymentWizard.exe
 ```
 
 ### Logging
-The CRM Deployment Wizard uses the Apache [log4net](https://logging.apache.org/log4net/) library for logging. The standard configuration generates two log files in the directory where the Deployment Wizard executable runs:
+The Dynamics 365 Deployment Wizard uses the Apache [log4net](https://logging.apache.org/log4net/) library for logging. The standard configuration generates two log files in the directory where the Deployment Wizard executable runs:
 
  - CrmDeploymentWizard.log - This is a verbose log of each step in the process. 
  - CrmDeploymentWizard-Error.log - This records every error encountered in the process. It is particularly useful for troubleshooting jobs that include a Configuration Data Import step because it includes the GUID and details for each record that could not be imported.
