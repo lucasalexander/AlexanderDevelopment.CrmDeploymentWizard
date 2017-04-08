@@ -16,6 +16,9 @@ namespace AlexanderDevelopment.CrmDeploymentWizard
         [Option('t', "target", Required = false, HelpText = "Simplified CRM connection string to CRM target org")]
         public string Target { get; set; }
 
+        [Option('p', "prompt", Required = false, HelpText = "Prompt for password to connect to CRM target org")]
+        public bool Prompt { get; set; }
+
         [Option('v', "verbose", HelpText = "Print details during execution")]
         public bool Verbose { get; set; }
 

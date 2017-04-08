@@ -24,13 +24,6 @@ namespace AlexanderDevelopment.CrmDeploymentWizard
             var options = new Options();
             if (CommandLine.Parser.Default.ParseArguments(args, options))
             {
-                // consume Options instance properties
-                if (options.Verbose)
-                {
-                    Console.WriteLine("Manifest file: {0}", options.Manifest);
-                    Console.WriteLine("Target connection string: {0}", options.Target);
-                }
-
                 if (!string.IsNullOrEmpty(options.Target))
                 {
                     _targetString = options.Target;
@@ -55,6 +48,37 @@ namespace AlexanderDevelopment.CrmDeploymentWizard
                     return;
                 }
 
+                if (options.Prompt)
+                {
+                    Console.WriteLine("Enter the connection password");
+                    string password = Console.ReadLine();
+                    if(!string.IsNullOrWhiteSpace(password))
+                    { 
+                        _targetString += string.Format("password={0};", password);
+                    }
+                    else
+                    {
+                        Console.WriteLine("no password specified - exiting");
+                        return;
+                    }
+                }
+
+                // consume Options instance properties
+                if (options.Verbose)
+                {
+                    //strip out the password before we log the connection parameters
+                    StringBuilder targetSb = new StringBuilder();
+                    foreach (string item in ExtractConnectionParams(_targetString))
+                    {
+                        if (!item.ToUpper().StartsWith("PASSWORD"))
+                        {
+                            targetSb.Append(string.Format("{0};", item));
+                        }
+                    }
+                    Console.WriteLine("Manifest file: {0}", options.Manifest);
+                    Console.WriteLine("Target connection string: {0}", targetSb.ToString());
+                }
+
                 Deployer deployer = new Deployer
                 {
                     ManifestData = _json,
@@ -64,6 +88,30 @@ namespace AlexanderDevelopment.CrmDeploymentWizard
 
                 deployer.Process();
             }
+        }
+
+        static List<string> ExtractConnectionParams(string connstring)
+        {
+            string[] connectionparams = connstring.Split(";".ToCharArray());
+            int counter = 0;
+            List<string> paramlist = new List<string>();
+            foreach (string param in connectionparams)
+            {
+                if (!string.IsNullOrWhiteSpace(param))
+                {
+                    if (param.Contains("="))
+                    {
+                        paramlist.Add(param);
+                        counter++;
+                    }
+                    else
+                    {
+                        paramlist[counter - 1] = paramlist[counter - 1] + ";" + param;
+                    }
+                }
+            }
+
+            return paramlist;
         }
     }
 }

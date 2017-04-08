@@ -371,12 +371,23 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
         void ParseCrmConnection()
         {
             LogMessage("INFO", string.Format("Parsing CRM connection"));
-            LogMessage("INFO", string.Format("target string: {0}", _targetString));
+
+            //strip out the password before we log the connection parameters
+            StringBuilder targetSb = new StringBuilder();
+            foreach(string item in ExtractConnectionParams(_targetString))
+            {
+                if(!item.ToUpper().StartsWith("PASSWORD"))
+                {
+                    targetSb.Append(string.Format("{0};", item));
+                }
+            }
+
+            //log the connection parameters without password
+            LogMessage("INFO", string.Format("target string: {0}", targetSb.ToString()));
+
+            //create a new crm service client
             _targetClient = new CrmServiceClient(_targetString);
-
-            //disable prompting for credentials
-            //_targetClient.ClientCredentials.SupportInteractive = false;
-
+            
             //validate login works
             try
             {
@@ -394,6 +405,30 @@ namespace AlexanderDevelopment.CrmDeploymentWizard.Lib
                 LogMessage("ERROR", errormsg);
                 throw new InvalidOperationException(errormsg);
             }
+        }
+
+        List<string> ExtractConnectionParams(string connstring)
+        {
+            string[] connectionparams = connstring.Split(";".ToCharArray());
+            int counter = 0;
+            List<string> paramlist = new List<string>();
+            foreach (string param in connectionparams)
+            {
+                if (!string.IsNullOrWhiteSpace(param))
+                {
+                    if (param.Contains("="))
+                    {
+                        paramlist.Add(param);
+                        counter++;
+                    }
+                    else
+                    {
+                        paramlist[counter - 1] = paramlist[counter - 1] + ";" + param;
+                    }
+                }
+            }
+
+            return paramlist;
         }
     }
 }
